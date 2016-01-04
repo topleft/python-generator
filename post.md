@@ -157,8 +157,8 @@ The breakdown:
 * Create a variable to hold our sum
 * Instantiate a generator object and store in a variable
 * Run a for loop and call the next method to create a new value in the sequence defined by our generator
-* keep a running sum of all of the values
-* return the total when the loop has executed `num` times  
+* Keep a running sum of all of the values
+* Return the total when the loop has executed `num` times  
 
 
 ```python
@@ -173,6 +173,14 @@ def until_small(epsilon):
     return result
 ```
 
+The breakdown:
+* Create a variable that we will use to eventually exit our `while` loop
+* Create a variable to hold our sum
+* Instantiate a generator object and store it in a variable
+* Run a while loop that continues until `is_greater` is false
+* Add the current value returned by the generator to our total
+* Set `is_greater` to false when the value returned by the generator is less than epsilon, thus ending our loop
+* Return the result
 
 #### recap generators and use cases
 
