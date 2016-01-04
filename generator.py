@@ -8,7 +8,7 @@ additional term is less than some small value epsilon.
 
 """
 
-def seq_generator():
+def generate_seq():
     """Generates the infinite geometric series 1, 1/2, 1/4, 1/8, ..."""
     i = 1
     while True:
@@ -16,23 +16,29 @@ def seq_generator():
         i *= 2
 
 def first_N(num):
-    """Use seq_generator() to generate the sum of the first num values of the series."""
-    n = 0
+    """Use generate_seq() to generate the sum of the first num values of the series."""
     result = 0.0
-    seq = seq_generator()
-    while n < num:
+    seq = generate_seq()
+    for n in range(num):
         result += next(seq)
-        n += 1
     return result
 
 def until_small(epsilon):
-    """Use seq_generator() to generate the sum of the series until a value smaller
+    """Use generate_seq() to generate the sum of the series until a value smaller
     than epsilon is encountered."""
-    current = 1
+    is_greater = True
     result = 0.0
-    seq = seq_generator()
-    while current > epsilon:
+    seq = generate_seq()
+    while is_greater:
         current = next(seq)
         result += current
+        is_greater = current > epsilon
     return result
+
+
+gen = generate_seq()
+print(gen)
+print(next(gen))
+print(next(gen))
+print(next(gen))
 

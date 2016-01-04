@@ -106,13 +106,73 @@ def generate_seq():
         i *= 2
 ```
 
-Now this looks more or less like a typical python function, but notice the `yield` key word. That is the heart of a generator definition. It acts much like a `return` statement, but with some added function:
+Now, this looks more or less like a typical Python function, but notice the `yield` key word. That is the heart of a generator definition. It is some what like a `return` statement, but does quite a bit more. When called, this `generate_seq()` will return a `<generator object>` that can easily be stored in a variable for use through out your program or function. Here is what that generator object does:
+
   * the code outside the of `while` block will only run once, when the generator is created
   * each `next()` call will run the the `while` loop one time
   * each `next()` call will return one value
   * after each `next()` call the generator will hold its newly changed state
 
-#### continue until solution is complete
+Lets test this out. In the same file add this code:
+
+> FYI: we are going to take this code out after we run it. It is only to make sure our generator works.
+
+```python
+gen = generate_seq()
+print(gen)
+print(next(gen))
+print(next(gen))
+print(next(gen))
+```
+If you run that in your terminal:
+
+```sh
+$ python3 generator.py
+```
+You should see this: 
+
+```sh
+<generator object generate_seq at 0x101a0f728>
+1.0
+0.5
+0.25
+```
+
+You can see that stored in the variable `gen` is in fact an object of type *generator*. As well, each next call produced a different value. Exactly what we wanted.
+
+> Go ahead and take that previous bit of code out now, we no longer need it.
+
+Lets now implement this generator in more dynamic ways by combining it with other functions. As stated in the original problem, we need to sum the first `num` values and we need to sum the values until the ouput of the generator is smaller than a specified value. Lets get to work. Before you read further, take a few stabs at solving this yourself. It will make the answers much more valuable to your learning proccess.
+
+```python
+def first_N(num):
+    result = 0.0
+    seq = generate_seq()
+    for n in range(num):
+        result += next(seq)
+    return result
+```
+The breakdown: 
+* We take an argument that tells us how many values to add together.
+* Create a variable to hold our sum
+* Instantiate a generator object and store in a variable
+* Run a for loop and call the next method to create a new value in the sequence defined by our generator
+* keep a running sum of all of the values
+* return the total when the loop has executed `num` times  
+
+
+```python
+def until_small(epsilon):
+    is_greater = True
+    result = 0.0
+    seq = generate_seq()
+    while is_greater:
+        current = next(seq)
+        result += current
+        is_greater = current > epsilon
+    return result
+```
+
 
 #### recap generators and use cases
 
