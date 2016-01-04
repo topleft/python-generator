@@ -8,9 +8,6 @@ additional term is less than some small value epsilon.
 
 """
 
-import sys
-import pytest
-
 def seq_generator():
     """Generates the infinite geometric series 1, 1/2, 1/4, 1/8, ..."""
     i = 1
@@ -39,22 +36,3 @@ def until_small(epsilon):
         result += current
     return result
 
-def test_first_N():
-    assert 0.0 == first_N(0)
-    assert 1.0 == first_N(1)
-    assert 1.5 == first_N(2)
-    assert 1.75 == first_N(3)
-    assert 1.875 == first_N(4)
-
-
-def test_until_small():
-    assert 1.5 == until_small(1.0 / 2)
-    assert 1.875 == until_small(1.0 / 8)
-
-
-def main():
-    return pytest.main(__file__)
-
-
-if __name__ == '__main__':
-    sys.exit(main())
